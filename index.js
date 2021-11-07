@@ -72,7 +72,6 @@
                 res.send(data.toString());
             })
         }
- 
     })
 
     app.delete("/api/removeItem", function(req, res) {

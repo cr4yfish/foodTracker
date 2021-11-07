@@ -15,24 +15,17 @@
     </head>
 
     <body>
- 
-        <header>
-            <div id="logoWrapper">
-                <h1>FoodTracker</h1>
-                <div></div>
+
+        <div id="sidebar">
+
+            <div class="sidebarHeader">
+                <i onclick="toggleSidebar('close');" class="fas fa-times"></i>
             </div>
             
-            <div class="input-wrapper">
-                <select name="inputSort" id="inputSort">
-                    <option value="none">Default</option>
-                    <option value="name">Name</option>
-                    <option value="date">Date</option>
-                    <option value="count">Count</option>
-                </select>
-            </div>
+            <div class="sidebarEntry">Add Group</div>
 
-        </header>
-
+        </div>
+ 
         <div id="popup" data-active="false">
 
             <div class="popupBody">
@@ -57,14 +50,51 @@
                     <label id="dateLabel" for="inputDate">Date</label>
                     <input type="date" name="inputDate" id="inputDate" placeholder=" " required>
                 </div>
+
+                <div class="input-wrapper">
+                    <select name="inputGroup" id="inputGroup">
+                        <option value="none">Unsorted</option>
+                        <option value="fridge">Fridge</option>
+                        <option value="freezer">Freezer</option>
+                        <option value="cabinet">Cabinet</option>
+                    </select>
+                </div>
     
                 <button id="confirmBtn" onclick="sendItem('sendItem');" class="btn confirm-btn">Add</button>
                 <button id="removeBtn" onclick="removeItem(this.dataset.id)" class="btn abort-btn">Remove</button>
 
             </div>
 
-            
         </div>
+
+        <div id="opacityLayer"></div>
+
+
+        <header>
+
+            <div id="logoWrapper">
+
+                <div id="logo">
+                    <h1>FoodTracker</h1>
+                    <div></div>
+                </div>
+    
+                <i onclick="toggleSidebar('open')" class="fas fa-bars"></i>
+                
+            </div>
+            
+            <div class="input-wrapper">
+                <select name="inputSort" id="inputSort">
+                    <option value="none">Default</option>
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                    <option value="count">Count</option>
+                </select>
+            </div>
+            
+
+        </header>
+
 
         <main>
 

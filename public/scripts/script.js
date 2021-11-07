@@ -9,8 +9,46 @@ function addListeners() {
     sortSelect.addEventListener("change", function(e) {
         getItems();
     })
-
 }
+
+function toggleSidebar(state) {
+    let sidebar = document.getElementById("sidebar");
+    if(state == "close") {
+        sidebar.style.width = "0";
+        toggleOpacityLayer("close");
+    } else if (state == "open") {
+        sidebar.style.width = "15rem";
+        toggleOpacityLayer("open");
+        document.getElementById("opacityLayer").setAttribute("onclick", "toggleSidebar('close')")
+    }
+}
+
+function toggleOpacityLayer(state) {
+    let opacityLayer = document.getElementById("opacityLayer");
+    if( state == "close") {
+        opacityLayer.style.display = "none";
+    } else if( state == "open") {
+        opacityLayer.style.display = "block";
+    }
+}
+
+function togglePopup() {
+
+    // make visible
+    const popup = document.getElementById("popup");
+
+    if (popup.dataset.active == "true") {
+        popup.style.display = "none";
+        popup.dataset.active = "false";
+        toggleOpacityLayer("close");
+    } else {
+        popup.style.display = "block";
+        popup.dataset.active = "true";
+        toggleOpacityLayer("open");
+        document.getElementById("opacityLayer").setAttribute("onclick", "togglePopup('close')")
+    }
+}
+
 
 function displayItem(item) {
 
@@ -32,6 +70,7 @@ function displayItem(item) {
     document.getElementById("inputName").value = object.name;
     document.getElementById("inputCount").value = object.count;
     document.getElementById("inputDate").value = date;
+    document.getElementById("inputGroup").value = object.value;
 
 
     // set labels
@@ -85,6 +124,7 @@ function sendItem(updateOrAdd) {
         name: document.getElementById("inputName").value,
         count: document.getElementById("inputCount").value,
         date: document.getElementById("inputDate").valueAsNumber,
+        group: document.getElementById("inputGroup").value,
     }
 
     if (
@@ -165,9 +205,28 @@ function clearItemGroups() {
 function drawItemGroups(items) {
 
     clearItemGroups().then(function() {
-        const parent = document.getElementById("itemWrapper");
+        let parent = document.getElementById("itemWrapper");
 
         items.forEach(function(item) {
+
+            // add fieldset if item has group and change parent to the fieldset
+            if(document.getElementById(item.group) == null && item.hasOwnProperty("group")) {
+                const itemFieldset = document.createElement("fieldset");
+                    itemFieldset.setAttribute("class", "itemFieldset");
+                    itemFieldset.setAttribute("id", item.group);
+                document.querySelector("#itemWrapper").appendChild(itemFieldset);
+
+                const legend = document.createElement("legend");
+                    legend.textContent = item.group;
+                itemFieldset.appendChild(legend);
+
+                parent = itemFieldset;
+            } else if (item.hasOwnProperty("group")) {
+                // item has group and fieldset already exists
+
+                parent = document.getElementById(item.group);
+            }
+
             const itemGroup = document.createElement("div");
                 itemGroup.classList.add("itemGroup");
                 itemGroup.setAttribute("onclick", "displayItem(this)");
@@ -192,26 +251,14 @@ function drawItemGroups(items) {
 
             document.getElementById("removeBtn").dataset.id = item._id;
 
+            // reset parent for next element
+            parent = document.getElementById("itemWrapper");
         })
 
         addListeners();
     })
 }
 
-function togglePopup() {
-
-
-    // make visible
-    const popup = document.getElementById("popup");
-
-    if (popup.dataset.active == "true") {
-        popup.style.display = "none";
-        popup.dataset.active = "false";
-    } else {
-        popup.style.display = "block";
-        popup.dataset.active = "true";
-    }
-}
 
 function clearPopup() {
 
@@ -228,8 +275,10 @@ function clearPopup() {
         catch {
             
         }
-        
     })
+
+    // hide removeBtn
+    document.getElementById("removeBtn").style.display = "none";
 
     document.getElementById("confirmBtn").textContent = "Add";
     document.getElementById("confirmBtn").setAttribute("onclick", "sendItem('add')");
