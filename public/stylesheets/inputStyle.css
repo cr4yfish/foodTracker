@@ -8,7 +8,7 @@
     align-items: center;
     border-radius: 9px;
     margin-bottom: 2rem;
-    border: 1px solid var(--soft-green);
+    background-color: var(--lighterBlack)
 }
 
 .input-wrapper:last-of-type {
@@ -33,15 +33,19 @@ input:focus-visible {
     background: rgba(243, 243, 243, 0.034);
 }
 
-.label {
+.label, #dateLabel {
     position: absolute;
     margin-left: 1em;
-    background-color: var(--lighterBlack);
+    background-color: var(--light-green);
     color: white;
-    padding: 0.25em;
+    padding: 0.15em 1rem;
     transform: translateX(0.5em);
     transition: transform 0.25s;
     z-index: 20;
+}
+
+#dateLabel {
+    transform: translateY(-1.75em);
 }
 
 .input, select  {
@@ -65,13 +69,15 @@ input[type="text"], textarea, select, input[type="number"], input[type="date"]  
     z-index: 3;
     border: none !important;
     background-color: var(--lighterGrey);
-    width: 18rem;
+    width: 100%;
+    height: 2rem;
 }
 
 select {
     width: 9rem;
     margin: 0;
     background-color: var(--lighterBlack);
+    font-size: 12pt;
 }
 
 input:focus-visible, textarea:focus-visible {

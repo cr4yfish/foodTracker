@@ -27,6 +27,7 @@
                     <option value="none">Default</option>
                     <option value="name">Name</option>
                     <option value="date">Date</option>
+                    <option value="count">Count</option>
                 </select>
             </div>
 
@@ -34,22 +35,33 @@
 
         <div id="popup" data-active="false">
 
-            <div class="input-wrapper">
-                <label for="name" class="label">Name</label>
-                <input type="text" id="inputName" required>
+            <div class="popupBody">
+
+                <div class="popupTitle">
+                    <h2 id="popupTitleText" >Add new Item</h2>
+                    <i onclick="togglePopup();" class="fas fa-times"></i>
+                </div>
+        
+                
+                <div class="input-wrapper">
+                    <label for="name" class="label">Name</label>
+                    <input type="text" id="inputName" maxlength="32" required>
+                </div>
+    
+                <div class="input-wrapper">
+                    <label for="name" class="label">Count</label>
+                    <input type="number" id="inputCount" max="50" required>
+                </div>
+
+                <div class="input-wrapper">
+                    <label id="dateLabel" for="inputDate">Date</label>
+                    <input type="date" name="inputDate" id="inputDate" placeholder=" " required>
+                </div>
+    
+                <button id="confirmBtn" onclick="sendItem('sendItem');" class="btn confirm-btn">Add</button>
             </div>
 
-            <div class="input-wrapper">
-                <label for="name" class="label">Count</label>
-                <input type="number" id="inputCount" required>
-            </div>
-
-            <div class="input-wrapper">
-                <input type="date" id="inputDate" required>
-            </div>
-
-            <button onclick="togglePopup();" class="btn abort-btn">Cancel</button>
-            <button onclick="sendItem();" class="btn confirm-btn">Add</button>
+            
         </div>
 
         <main>
@@ -73,7 +85,7 @@
         </main>
         
         <footer>
-            <div onclick="togglePopup();">
+            <div onclick="clearPopup();togglePopup();">
                 <i class="fas fa-plus-circle"></i>
             </div>
             

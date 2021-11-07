@@ -13,8 +13,14 @@ db.items.loadDatabase();
 
 function retrieveSorted(sortBy) {
     return new Promise((resolve, reject) => {
+
+        let sort = 1;
+
+        if(sortBy == "count") {
+            sort = -1;
+        }
         
-        db.items.find({}).sort( {[sortBy] : 1} ).exec(function(err, docs) {
+        db.items.find({}).sort( {[sortBy] : sort} ).exec(function(err, docs) {
             if(!err) {
                 resolve(docs)
             } else {
@@ -50,6 +56,27 @@ function saveItem(item) {
     })
 }
 
+function updateItem(item) {
+    console.log("Updating item:", item.id);
+
+    return new Promise((resolve, reject) => {
+
+        const id = item.id;
+
+        delete item.id
+
+        db.items.update({_id: id}, item, {}, function(err, numReplaced) {
+            if(!err) {
+                resolve(numReplaced);
+            } else {
+                console.log(err);
+                reject(err);
+            }
+        })
+    })
+}
+
 exports.retrieveSorted = retrieveSorted;
 exports.retrieveAll = retrieveAll;
 exports.saveItem = saveItem;
+exports.updateItem = updateItem;

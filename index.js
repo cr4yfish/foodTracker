@@ -57,14 +57,22 @@
         }
     })
 
-    app.post("/api/sendItem", function(req, res) {
-        console.log("Getting send-item POST request");
-        const reqBody = req.body;
-        console.log(reqBody);
 
-        database.saveItem(reqBody).then(function(data) {
-            res.send(data);
-        })
+    app.post("/api/sendItem/:reqState", function(req, res) {
+        console.log("Getting send-item POST request:", req.params.reqState);
+        const reqBody = req.body;
+        console.log("Got this:", reqBody);
+
+        if(req.params.reqState == "add") {
+            database.saveItem(reqBody).then(function(data) {
+                res.send(data.toString());
+            })
+        } else if (req.params.reqState == "update") {
+            database.updateItem(reqBody).then(function(data) {
+                res.send(data.toString());
+            })
+        }
+ 
     })
 
 //

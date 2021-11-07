@@ -6,7 +6,7 @@ inputFields.forEach(input => {
         input.addEventListener("focus", function(e) {
             try {
                 if(e.target.previousElementSibling.classList.contains("linkRemove") == false) { 
-                    e.target.previousElementSibling.style.transform = "translateY(-1.55em)"
+                    e.target.previousElementSibling.style.transform = "translateY(-1.75em)"
                 }
             }
             catch (e) {
