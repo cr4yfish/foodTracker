@@ -76,7 +76,23 @@ function updateItem(item) {
     })
 }
 
+function deleteItem(object) {
+    console.log("Delete item:", object.id);
+
+    return new Promise((resolve, reject) => {
+
+        db.items.remove({_id: object.id}, {}, function(err, numRemoved) {
+            if(!err) {
+                resolve(numRemoved);
+            } else {
+                reject(err);
+            }
+        })
+    })
+}
+
 exports.retrieveSorted = retrieveSorted;
 exports.retrieveAll = retrieveAll;
 exports.saveItem = saveItem;
 exports.updateItem = updateItem;
+exports.deleteItem = deleteItem;

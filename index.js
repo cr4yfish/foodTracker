@@ -13,7 +13,7 @@
 // Setup
 
     app.set("view-engine", "ejs");
-    app.listen(30000);
+    app.listen(30001);
 
 
     app.use(express.static(path.join(__dirname, "/public")));
@@ -73,6 +73,16 @@
             })
         }
  
+    })
+
+    app.delete("/api/removeItem", function(req, res) {
+        console.log("Got DELETE request");
+        const reqBody = req.body;
+        console.log("Got this:", reqBody);
+
+        database.deleteItem(reqBody).then(function(data) {
+            res.sendStatus(200);
+        })
     })
 
 //

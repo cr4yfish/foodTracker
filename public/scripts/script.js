@@ -1,5 +1,5 @@
-const _URL = "http://localhost:30000";
-
+const _URL = "http://localhost:30001";
+//const _URL = "http://192.168.0.100:30001";
 
 function addListeners() {
 
@@ -53,6 +53,10 @@ function displayItem(item) {
     document.getElementById("confirmBtn").textContent = "Update";
     document.getElementById("popupTitleText").textContent = "Edit item";
     document.getElementById("confirmBtn").setAttribute("onclick", "sendItem('update')");
+
+    // show remove btn
+    document.getElementById("removeBtn").style.display = "block";
+
 
     togglePopup();
 }
@@ -113,13 +117,38 @@ function sendItem(updateOrAdd) {
             }
 
         fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(function(response) {
+        .then(function() {
             getItems()
             togglePopup();
         })
     }
 }
+
+function removeItem(id) {
+    console.log("Removing this: ", id);
+
+    const object = {
+        id: id,
+    }
+
+    let url = `${_URL}/api/removeItem`;
+
+        const requestOptions = {
+        method: "DELETE",
+        body: JSON.stringify(object),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        }
+
+    fetch(url, requestOptions)
+    .then(function() {
+        getItems()
+        togglePopup();
+    })
+    
+}
+
 
 function clearItemGroups() {
     return new Promise((resolve, reject) => {
@@ -160,6 +189,8 @@ function drawItemGroups(items) {
                 itemDate.classList.add("itemDate");
                 itemDate.textContent = date.toDateString();
             itemGroup.appendChild(itemDate);
+
+            document.getElementById("removeBtn").dataset.id = item._id;
 
         })
 

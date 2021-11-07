@@ -6,8 +6,8 @@
     --dark-green: #f5e9d6;
     --grey: #bbaf9a;
 
-    --black: #0a0b0a;
-    --lighterBlack: #242524;
+    --black: #22272e;
+    --lighterBlack: #2d333b;
     --lighestBlack: #595b58;
 
     --text-white: #FAFAFA;
@@ -97,25 +97,30 @@ header i {
     border-radius: 3px;
     font-size: 14pt;
     outline: none;
-    border: none;
     margin-top: 1rem;
     cursor: pointer;
 }
 
 .confirm-btn {
     color: #8ae28d;
-    background-color: #2d7439;
+    background-color: #347d39;
     width: 100%;
+    border: 2px solid #2d7439;
+}
+
+.confirm-btn:focus-visible, .confirm-btn:target {
+    border: 2px solid #8ae28d;
 }
 
 .abort-btn {
     color: #d46f6f;
     background-color: #663a36;
+    display: "none";
+    border: 2px solid #663a36;
 }
 
-.abort-btn:hover {
-    color: #fd8383;
-    background-color: #a84a41;
+.abort-btn:focus-visible, .abort-btn:target {
+    border: 2px solid #d46f6f;
 }
 
 
@@ -212,7 +217,7 @@ footer .fas {
     left: 50%;
     transform: translate(-50%);
     top: 5%;
-    background-color: #141414;
+    background-color: var(--lighterBlack);
     border-radius: 11px;
     z-index: 50;
     display: none;
