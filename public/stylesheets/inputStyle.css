@@ -1,0 +1,80 @@
+/*
+    inputs
+*/
+
+.input-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 9px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--soft-green);
+}
+
+.input-wrapper:last-of-type {
+    margin-bottom: 0;
+}
+
+input {
+    background: none;
+    color: white;
+    border-radius: 9px;
+    font-size: 11pt;
+    padding: 0.5em 0.5em;
+    outline: none;
+    z-index: 3;
+    border: none;
+    color: white;
+}
+
+input:focus-visible {
+    outline: none;
+    border: solid 2px var(--soft-green);
+    background: rgba(243, 243, 243, 0.034);
+}
+
+.label {
+    position: absolute;
+    margin-left: 1em;
+    background-color: var(--lighterBlack);
+    color: white;
+    padding: 0.25em;
+    transform: translateX(0.5em);
+    transition: transform 0.25s;
+    z-index: 20;
+}
+
+.input, select  {
+    margin: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid 2px var(--soft-green);
+    border-radius: 9px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+input[type="text"], textarea, select, input[type="number"], input[type="date"]  {
+    background: none;
+    color: white;
+    border-radius: 9px;
+    font-size: 16pt;
+    padding: 0.5em 0.5em;
+    outline: none;
+    z-index: 3;
+    border: none !important;
+    background-color: var(--lighterGrey);
+    width: 18rem;
+}
+
+select {
+    width: 9rem;
+    margin: 0;
+    background-color: var(--lighterBlack);
+}
+
+input:focus-visible, textarea:focus-visible {
+    outline: none;
+    border: solid 2px var(--soft-green);
+}

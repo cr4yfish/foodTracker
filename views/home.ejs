@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home</title>
+        <meta name="description" content="Track your food n stuff">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/inputStyle.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+ 
+        <header>
+            <div id="logoWrapper">
+                <h1>FoodTracker</h1>
+                <div></div>
+            </div>
+            
+            <div class="input-wrapper">
+                <select name="inputSort" id="inputSort">
+                    <option value="none">Default</option>
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                </select>
+            </div>
+
+        </header>
+
+        <div id="popup" data-active="false">
+
+            <div class="input-wrapper">
+                <label for="name" class="label">Name</label>
+                <input type="text" id="inputName" required>
+            </div>
+
+            <div class="input-wrapper">
+                <label for="name" class="label">Count</label>
+                <input type="number" id="inputCount" required>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="date" id="inputDate" required>
+            </div>
+
+            <button onclick="togglePopup();" class="btn abort-btn">Cancel</button>
+            <button onclick="sendItem();" class="btn confirm-btn">Add</button>
+        </div>
+
+        <main>
+
+            <div id="legend">
+                <span class="itemName">Item name</span>
+                <span class="itemCount">#</span>
+                <span class="itemDate">Date</span>
+            </div>
+
+            <div id="itemWrapper">
+
+                <div class="itemGroup">
+                    <span class="itemName">Potato</span>
+                    <span class="itemCount">2</span>
+                    <span class="itemDate">15.11.2021</span>
+                </div>
+
+            </div>
+
+        </main>
+        
+        <footer>
+            <div onclick="togglePopup();">
+                <i class="fas fa-plus-circle"></i>
+            </div>
+            
+        </footer>
+
+        <script src="/scripts/inputLogic.js" async defer></script>
+        <script src="/scripts/script.js" async defer></script>
+    </body>
+</html>
