@@ -94,6 +94,7 @@ input:focus-visible, textarea:focus-visible {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
+    position: relative;
 }
 
 #search {

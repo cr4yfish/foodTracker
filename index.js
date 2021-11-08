@@ -1,5 +1,8 @@
 "use strict"
 
+console.log("Main module loaded...");
+console.log("=========");
+
 // imports
 
     const express = require("express");
@@ -42,19 +45,18 @@
 
 // private entries
 
-    app.get("/api/getItems/:sortBy", function(req, res) {
-        console.log("Gettings get-Items request with", req.params.sortBy);
+    app.get("/api/getItems/:sortBy/:searchBy", function(req, res) {
+        console.log("Gettings get-Items request with", req.params.searchBy, "in", req.params.sortBy);
 
-        if(req.params.sortBy == "none") {
-            database.retrieveAll().then(function(data) {
-                res.send(data);
-            })
-        } else {
-            console.log(`Gettings sorted items...`)
-            database.retrieveSorted(req.params.sortBy).then(function(data) {
-                res.send(data);
-            })
-        }
+        const sortBy = req.params.sortBy, searchBy = req.params.searchBy;
+
+        // put in info in database API
+        database.retrieveSorted(sortBy, searchBy).then(function(data) {
+            res.send(data);
+        })
+
+        console.log("=========");
+        
     })
 
 
@@ -87,5 +89,5 @@
 //
 
 
-console.log("Main module loaded...");
+
 console.log("Listening...");
