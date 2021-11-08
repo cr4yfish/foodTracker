@@ -10,6 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/stylesheets/style.css">
         <link rel="stylesheet" href="/stylesheets/inputStyle.css">
+        <link rel="stylesheet" href="/stylesheets/popup.css">
+        <link rel="stylesheet" href="/stylesheets/sidebar.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
@@ -53,7 +55,7 @@
 
                 <div class="input-wrapper">
                     <select name="inputGroup" id="inputGroup">
-                        <option value="none">Unsorted</option>
+                        <option selected value="none">Unsorted</option>
                         <option value="fridge">Fridge</option>
                         <option value="freezer">Freezer</option>
                         <option value="cabinet">Cabinet</option>
@@ -73,28 +75,33 @@
         <header>
 
             <div id="logoWrapper">
-
                 <div id="logo">
                     <h1>FoodTracker</h1>
                     <div></div>
                 </div>
     
                 <i onclick="toggleSidebar('open')" class="fas fa-bars"></i>
+            </div>
+
+            <div id="searchWrapper">
+
+                <div id="search" class="input-wrapper">
+                    <label class="label" for="searchbar">Search..</label>
+                    <input type="search" name="seachbar" id="searchbar" placeholder="">
+                </div>
                 
+                <div class="input-wrapper">
+                    <select name="inputSort" id="inputSort">
+                        <option value="none">Default</option>
+                        <option value="name">Name</option>
+                        <option value="date">Date</option>
+                        <option value="count">Count</option>
+                    </select>
+                </div>
+
             </div>
-            
-            <div class="input-wrapper">
-                <select name="inputSort" id="inputSort">
-                    <option value="none">Default</option>
-                    <option value="name">Name</option>
-                    <option value="date">Date</option>
-                    <option value="count">Count</option>
-                </select>
-            </div>
-            
 
         </header>
-
 
         <main>
 
@@ -116,12 +123,10 @@
 
         </main>
         
-        <footer>
-            <div onclick="clearPopup();togglePopup();">
-                <i class="fas fa-plus-circle"></i>
-            </div>
-            
-        </footer>
+        <div id="addNewBtn" onclick="clearPopup();togglePopup();">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+  
 
         <script src="/scripts/inputLogic.js" async defer></script>
         <script src="/scripts/script.js" async defer></script>

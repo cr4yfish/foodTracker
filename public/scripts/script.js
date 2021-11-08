@@ -1,6 +1,10 @@
 const _URL = "http://localhost:30001";
 //const _URL = "http://192.168.0.100:30001";
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function addListeners() {
 
     // sort popup handling
@@ -11,24 +15,32 @@ function addListeners() {
     })
 }
 
-function toggleSidebar(state) {
+async function toggleSidebar(state) {
     let sidebar = document.getElementById("sidebar");
     if(state == "close") {
-        sidebar.style.width = "0";
         toggleOpacityLayer("close");
+        sidebar.style.width = "0";
+        await sleep(1000);
+        sidebar.style.display = "none";
     } else if (state == "open") {
-        sidebar.style.width = "15rem";
         toggleOpacityLayer("open");
+        sidebar.style.display = "block";
+        await sleep(50);
+        sidebar.style.width = "15rem";
         document.getElementById("opacityLayer").setAttribute("onclick", "toggleSidebar('close')")
     }
 }
 
-function toggleOpacityLayer(state) {
+async function toggleOpacityLayer(state) {
     let opacityLayer = document.getElementById("opacityLayer");
     if( state == "close") {
+        opacityLayer.style.opacity = "0.0";
+        await sleep(1000);
         opacityLayer.style.display = "none";
     } else if( state == "open") {
         opacityLayer.style.display = "block";
+        await sleep(100);
+        opacityLayer.style.opacity = "1.0";
     }
 }
 
@@ -246,7 +258,7 @@ function drawItemGroups(items) {
             let date = new Date(item.date);
             const itemDate = document.createElement("span");
                 itemDate.classList.add("itemDate");
-                itemDate.textContent = date.toDateString();
+                itemDate.textContent = date.toLocaleDateString();
             itemGroup.appendChild(itemDate);
 
             document.getElementById("removeBtn").dataset.id = item._id;

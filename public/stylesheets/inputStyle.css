@@ -59,7 +59,7 @@ input:focus-visible {
     position: relative;
 }
 
-input[type="text"], textarea, select, input[type="number"], input[type="date"]  {
+input[type="text"], textarea, select, input[type="number"], input[type="date"], input[type="search"]  {
     background: none;
     color: white;
     border-radius: 9px;
@@ -85,4 +85,24 @@ select {
 input:focus-visible, textarea:focus-visible {
     outline: none;
     border: solid 2px var(--soft-green);
+}
+
+
+#searchWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#search {
+    margin-bottom: 0;
+    height: 3rem;
+    margin-right: 2rem;
+}
+
+#searchbar {
+    height: 3rem;
+    background-color: var(--lighterBlack);
 }
