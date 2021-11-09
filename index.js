@@ -45,6 +45,21 @@ console.log("=========");
 
 // private entries
 
+    app.post("/updateProgram", function(req, res) {
+        const { exec } = require('child_process');
+        exec('./update.sh', (err, stdout, stderr) => {
+        if (err) {
+            //some err occurred
+            console.error(err)
+        } else {
+        // the *entire* stdout and stderr (buffered)
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+        }
+        });
+    })
+
+
     app.get("/api/getItems/:sortBy/:searchBy", function(req, res) {
         console.log("Gettings get-Items request with", req.params.searchBy, "in", req.params.sortBy);
 
