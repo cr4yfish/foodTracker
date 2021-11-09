@@ -23,16 +23,17 @@ function addListeners() {
     })
 }
 
-function updateProgram() {
+async function updateProgram() {
     let url = `${_URL}/updateProgram`;
 
     const reqOptions = {
         method : "POST",
     }
 
-    fetch(url, reqOptions).then(function(res) {
-        window.location.replace(_URL);
-    })
+    fetch(url, reqOptions);
+    await sleep(3000);
+    window.location.replace(_URL);
+    
 }
 
 getItems();

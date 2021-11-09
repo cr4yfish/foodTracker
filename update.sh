@@ -33,7 +33,7 @@ pm2 restart foodTracker
 
 #refresh directory
 echo "Refreshing indexed directories"
-cd `pwd`
+cd .
 
 # done
 echo "Done"
