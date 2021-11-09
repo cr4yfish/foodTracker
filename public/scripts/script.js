@@ -23,5 +23,16 @@ function addListeners() {
     })
 }
 
+function updateProgram() {
+    let url = `§{_URL}/updateProgram`;
+
+    const reqOptions = {
+        method = "POST",
+    }
+
+    fetch(url, reqOptions).then(response => response.json())
+    .then(response => console.log(response));
+}
+
 getItems();
 addListeners();
