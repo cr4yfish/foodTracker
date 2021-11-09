@@ -27,7 +27,7 @@ function updateProgram() {
     let url = `§{_URL}/updateProgram`;
 
     const reqOptions = {
-        method = "POST",
+        method : "POST",
     }
 
     fetch(url, reqOptions).then(response => response.json())
