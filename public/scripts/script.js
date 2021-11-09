@@ -30,7 +30,7 @@ function updateProgram() {
         method : "POST",
     }
 
-    fetch(url, reqOptions).then(function() {
+    fetch(url, reqOptions).then(function(res) {
         window.location.replace(_URL);
     })
 }
