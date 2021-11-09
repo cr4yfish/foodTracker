@@ -35,7 +35,7 @@ console.log("=========");
 
 // public entries
     app.get('/', function(req, res) {
-        res.send("Hello");
+        res.redirect("/home")
     })
 
     app.get("/home", function(req, res) {

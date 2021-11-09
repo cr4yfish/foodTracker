@@ -30,8 +30,9 @@ function updateProgram() {
         method : "POST",
     }
 
-    fetch(url, reqOptions).then(response => response.json())
-    .then(response => console.log(response));
+    fetch(url, reqOptions).then(function() {
+        window.location.replace(_URL);
+    })
 }
 
 getItems();
