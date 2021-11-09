@@ -31,6 +31,9 @@ chmod 700 update.sh
 echo "Restarting process"
 pm2 restart foodTracker
 
+#refresh directory
+echo "Refreshing indexed directories"
+cd `pwd`
 
 # done
 echo "Done"
