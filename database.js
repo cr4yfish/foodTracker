@@ -18,10 +18,11 @@ function retrieveSorted(sortBy = "none", searchBy = "none") {
         // needs to be '-1' if sort category is an integer
         let sort = 1;
 
+        /*
         if(sortBy == "count") {
             sort = -1;
         }
-
+        */
 
         let searchRequest = searchBy;
         // fix searchBy

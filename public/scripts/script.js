@@ -1,5 +1,5 @@
-//const _URL = "http://localhost:30001";
-const _URL = "http://192.168.0.100:30001";
+const _URL = "http://localhost:30001";
+//const _URL = "http://192.168.0.100:30001";
 
 function addListeners() {
 
