@@ -31,7 +31,7 @@ async function updateProgram() {
     }
 
     fetch(url, reqOptions);
-    await sleep(3000);
+    await sleep(7000);
     window.location.replace(_URL);
     
 }
