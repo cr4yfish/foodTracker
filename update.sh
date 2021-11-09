@@ -23,9 +23,14 @@ echo "Installing npm libs"
 cd foodTracker
 npm install
 
+# add permissions
+echo "Adding permissions to new update.sh"
+chmod 700 update.sh
+
 # restart process
 echo "Restarting process"
 pm2 restart foodTracker
+
 
 # done
 echo "Done"
