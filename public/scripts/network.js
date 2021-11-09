@@ -108,6 +108,7 @@ function drawItemGroups(items) {
 
             const itemGroup = document.createElement("div");
                 itemGroup.classList.add("itemGroup");
+                itemGroup.dataset.group = item.group;
                 itemGroup.setAttribute("onclick", "displayItem(this)");
             parent.appendChild(itemGroup);
     

@@ -70,14 +70,14 @@ function displayItem(item) {
     let date = new Date(item.querySelector(".itemDate").textContent);
 
         // Set the date
-    date = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + 
-    '-' + date.getDate().toString().padStart(2, 0);
+        date = date.toISOString().substring(0, 10);
 
     let object = {
         name: item.querySelector(".itemName").textContent,
         count: item.querySelector(".itemCount").textContent,
         date: date,
         id: item.querySelector(".itemName").dataset.id,
+        group: item.dataset.group,
     }
 
 
@@ -85,7 +85,7 @@ function displayItem(item) {
     document.getElementById("inputName").value = object.name;
     document.getElementById("inputCount").value = object.count;
     document.getElementById("inputDate").value = date;
-    document.getElementById("inputGroup").value = object.value;
+    document.getElementById("inputGroup").value = object.group;
 
 
     // set labels
