@@ -92,15 +92,15 @@ input:focus-visible, textarea:focus-visible {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: space-evenly;
     position: relative;
+    width:  66%;
+    align-self: center;
 }
 
 #search {
     margin-bottom: 0;
     height: 3rem;
-    margin-right: 2rem;
 }
 
 #searchbar {
