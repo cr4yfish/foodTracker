@@ -24,7 +24,7 @@ function addListeners() {
 }
 
 function updateProgram() {
-    let url = `§{_URL}/updateProgram`;
+    let url = `${_URL}/updateProgram`;
 
     const reqOptions = {
         method : "POST",
