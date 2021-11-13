@@ -1,5 +1,5 @@
-const _URL = "http://localhost:30001";
-//const _URL = "http://192.168.0.100:30001";
+//const _URL = "http://localhost:30001";
+const _URL = "http://192.168.0.100:30001";
 
 function addListeners() {
 
@@ -38,3 +38,10 @@ async function updateProgram() {
 
 getItems();
 addListeners();
+
+
+const children = document.getElementById("tablecontent").childNodes
+
+children.forEach(function(row) {
+    return row.querySelector("th").textContent;
+})
