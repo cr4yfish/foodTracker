@@ -84,6 +84,7 @@ function displayItem(item) {
         group: item.dataset.group,
     }
 
+    console.log(item.querySelector(".itemName").dataset.id);
 
     document.getElementById("inputName").dataset.id = object.id;
     document.getElementById("inputName").value = object.name;
@@ -114,6 +115,7 @@ function displayItem(item) {
 
     // show remove btn
     document.getElementById("removeBtn").style.display = "block";
+    document.getElementById("removeBtn").dataset.id = object.id;
 
 
     togglePopup();
