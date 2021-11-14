@@ -334,12 +334,5 @@ function drawItemGroups(items) {
     })
 }
 
-
-const children = document.getElementById("tablecontent").childNodes
-
-children.forEach(function(row) {
-    return row.querySelector("th").textContent;
-})
-
 getItems();
 addListeners();
