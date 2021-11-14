@@ -10,7 +10,7 @@
 
     position: absolute;
     right: 0; 
-    transition: width 1s;
+    transition: width .5s;
     display: none;
     overflow-x: hidden;
 
