@@ -41,7 +41,7 @@ input:focus-visible {
     padding: 0.15em 1rem;
     transform: translateX(0.5em);
     transition: transform 0.25s;
-    z-index: 20;
+    z-index: 10;
 }
 
 #dateLabel {
