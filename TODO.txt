@@ -1,0 +1,6 @@
+-- TODO --
+
+# When removing an Item, it is not disappearing until server restart
+
+-> SOLUTION:
+    - Force-Refresh database after removing Item.

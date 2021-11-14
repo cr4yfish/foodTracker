@@ -149,6 +149,10 @@ function deleteItem(object) {
         db.items.remove({_id: object.id}, {}, function(err, numRemoved) {
             if(!err) {
                 resolve(numRemoved);
+
+                // refresh database
+                db.items.persistence.compactDatafile();
+                
             } else {
                 reject(err);
             }
