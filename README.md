@@ -53,8 +53,6 @@ I'm also working on a notification system.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-
 * node
     ```
     sudo apt-get node
