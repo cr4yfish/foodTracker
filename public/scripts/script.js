@@ -427,7 +427,12 @@ function convertUPC(upc) {
 async function overwriteWidth() {
     // overwrite stupid width
     await sleep(2000);
-    document.querySelector("#qr-reader__scan_region > video").style.width = "100%";
+    try {
+        document.querySelector("#qr-reader__scan_region > video").style.width = "100%";
+    } catch(e) {
+        overwriteWidth();
+    }
+    
 }
 
 getItems();
