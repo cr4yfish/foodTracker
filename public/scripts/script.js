@@ -1,5 +1,7 @@
-//const _URL = "http://localhost:30001";
-const _URL = "http://192.168.0.100:30001";
+
+
+const _URL = "https://localhost:30001";
+//const _URL = "http://192.168.0.100:30001";
 
 
 function sleep(ms) {
@@ -51,14 +53,16 @@ async function toggleOpacityLayer(state) {
     }
 }
 
-function togglePopup() {
 
+
+function togglePopup() {
     // make visible
     const popup = document.getElementById("popup");
 
     if (popup.dataset.active == "true") {
         popup.style.display = "none";
         popup.dataset.active = "false";
+        document.getElementById("qr-reader").style.display = "none";
         toggleOpacityLayer("close");
     } else {
         popup.style.display = "block";
@@ -96,6 +100,7 @@ function displayItem(item) {
     // set labels
     let inputFields = document.querySelectorAll("input");
 
+    
     inputFields.forEach(input => {
         try {
 
@@ -184,7 +189,7 @@ function addListeners() {
 }
 
 async function updateProgram() {
-    let url = `${_URL}/updateProgram`;
+    let url = `/updateProgram`;
 
     const reqOptions = {
         method : "POST",
@@ -199,7 +204,7 @@ async function updateProgram() {
 
 // get Items
 function getItems() {
-    let url = `${_URL}/api/getItems/${getCurrentSort()}/${getCurrentSearch()}`;
+    let url = `/api/getItems/${getCurrentSort()}/${getCurrentSearch()}`;
 
     fetch(url)
     .then(response => response.json())
@@ -209,7 +214,7 @@ function getItems() {
     })
 }
 
-function sendItem(updateOrAdd) {
+function sendItem(updateOrAdd, reqObject = false) {
 
     let object = {
         name: document.getElementById("inputName").value,
@@ -218,13 +223,18 @@ function sendItem(updateOrAdd) {
         group: document.getElementById("inputGroup").value,
     }
 
+    // check if object is set
+    if(object != false) {
+        object = reqObject;
+    }
+
     if (
         object.name.length < 2 || 
         object.count < 0 || 
         object.date == null
         ) {
         // not valid information
-        console.log("Invalid info");
+        console.log("Invalid info", object);
         alert("Try again!");
     } 
     else 
@@ -237,7 +247,7 @@ function sendItem(updateOrAdd) {
 
         console.log("Sending this: ", object);
 
-        let url = `${_URL}/api/sendItem/${updateOrAdd}`;
+        let url = `/api/sendItem/${updateOrAdd}`;
     
            const requestOptions = {
             method: "POST",
@@ -250,7 +260,9 @@ function sendItem(updateOrAdd) {
         fetch(url, requestOptions)
         .then(function() {
             getItems()
-            togglePopup();
+            if(updateOrAdd !== "home_scan") {
+                togglePopup();
+            }
         })
     }
 }
@@ -262,7 +274,7 @@ function removeItem(id) {
         id: id,
     }
 
-    let url = `${_URL}/api/removeItem`;
+    let url = `/api/removeItem`;
 
         const requestOptions = {
         method: "DELETE",
@@ -336,5 +348,88 @@ function drawItemGroups(items) {
     })
 }
 
+let _SCANNER_HOME = false;
+
+function toggleScanner(type) {
+    if(type === "home") {
+        _SCANNER_HOME = true;
+    } else {
+        _SCANNER_HOME = false;
+    }
+    const scannerWrapper = document.getElementById("qr-reader");
+    document.getElementById("opacityLayer").setAttribute("onclick", "toggleScanner();");
+    console.log(scannerWrapper.dataset.state)
+    if(scannerWrapper.dataset.state === "closed"){
+        scannerWrapper.style.display = "block";
+        toggleOpacityLayer("open");
+        scannerWrapper.dataset.state = "open";
+
+    } else {
+        scannerWrapper.style.display = "none";
+        toggleOpacityLayer("close");
+        scannerWrapper.dataset.state = "closed";
+    }
+
+}
+
+
+async function onScanSuccess(decodedText, decodedResult) {
+    console.log("Code scanned", decodedText, decodedResult);
+    document.querySelector("#qr-reader__dashboard_section_csr > span:nth-child(2) > button:nth-child(2)").click();
+
+    // TO-DO: ADD SPINNER OR SOMETHING
+
+    convertUPC(decodedText).then(data => {
+        if(_SCANNER_HOME) {
+            // add item to home
+            const time = new Date().getTime();
+            const newItem = {
+                name: data.product.attributes.product,
+                count: 1,
+                date: time,
+                group: "none",
+            }
+            console.log(newItem);
+            sendItem("home_scan", newItem)
+            toggleOpacityLayer();
+        } else {
+            document.getElementById("inputName").previousElementSibling.style.transform = "translateY(-1.75em)"
+            document.getElementById("inputName").value = data.product.attributes.product;
+            document.getElementById("qr-reader").style.display = "none";
+        }
+    })
+    
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner(
+    "qr-reader", {
+            fps: 30,
+            qrbox: 250 
+        });
+
+html5QrcodeScanner.render(onScanSuccess);
+
+function convertUPC(upc) {
+    return new Promise((resolve, reject) => {
+
+        const url = `/api/convertUPC/${upc}`;
+        const options = {
+            method: "GET",
+            
+        }
+        fetch(url, options).then(res => res.json()).then(res => {
+            console.log(res);
+            resolve(res);
+        })
+    })
+}
+
+async function overwriteWidth() {
+    // overwrite stupid width
+    await sleep(2000);
+    document.querySelector("#qr-reader__scan_region > video").style.width = "100%";
+}
+
 getItems();
 addListeners();
+overwriteWidth();

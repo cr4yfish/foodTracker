@@ -29,6 +29,7 @@
 
         </div>
  
+        <div id="qr-reader" style="width: 600px;" data-state="closed"></div>
         <div id="popup" data-active="false">
 
             <div class="popupBody">
@@ -37,7 +38,10 @@
                     <h2 id="popupTitleText" >Add new Item</h2>
                     <i onclick="togglePopup();" class="fas fa-times"></i>
                 </div>
-        
+                
+                <div class="input-wrapper">
+                    <button onclick="toggleScanner();" id="barScan">Scan barcode</button>
+                </div>
                 
                 <div class="input-wrapper">
                     <label for="name" class="label">Name</label>
@@ -101,6 +105,10 @@
                     </select>
                 </div>
 
+                <div class="input-wrapper">
+                    <button onclick="toggleScanner('home');" id="barScanHomePage" class="btn confirm-btn">Scan barcode</button>
+                </div>
+                
             </div>
 
         </header>
@@ -129,7 +137,7 @@
             <i class="fas fa-plus-circle"></i>
         </div>
   
-
+        <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
         <script src="/scripts/inputLogic.js" async defer></script>
         <script src="/scripts/script.js" async defer></script>
     </body>

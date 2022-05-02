@@ -1,5 +1,14 @@
 /* add new popup */
 
+#qr-reader {
+    display: none;
+    position: absolute !important;
+    margin: auto;
+    z-index: 51 !important;
+    background-color: var(--lighterBlack);
+    max-width: 75%;
+}
+
 #popup {
     position: absolute;
     left: 50%;

@@ -6,17 +6,47 @@ console.log("=========");
 // imports
 
     const express = require("express");
+    const res = require("express/lib/response");
     const database = require('./database');
     const path = require("path");
     const app = express();
-
+    const https = require("https");
+    const cors = require('cors');
+    const fs = require("fs");
+    const fetch = require("node-fetch");
 //
 
 
 // Setup
 
+    // SSL
+    var key = fs.readFileSync(__dirname + '/certFiles/private.key');
+    var cert = fs.readFileSync(__dirname + '/certFiles/public.cert');
+
+    const options = {
+        key: key,
+        cert: cert
+    };
+
+    //
+
+
+    // cors
+        var corsOptions = {
+            origin: "*"
+        }
+
+        app.use(cors(corsOptions));
+    //
+
     app.set("view-engine", "ejs");
-    app.listen(30001);
+
+    // Create HTTPS server.
+
+    var server = https.createServer(options, app);
+    server.listen(30001);
+
+    //
 
 
     app.use(express.static(path.join(__dirname, "/public")));
@@ -103,8 +133,25 @@ console.log("=========");
         })
     })
 
+    app.get("/api/convertupc/:upc", async (req, res) => {
+        const data = await convertUPC(req.params.upc);
+        res.send(data);
+    })
+
 //
 
+
+function convertUPC(upc) {
+    return new Promise((resolve, reject) => {
+
+        const API_KEY = "10A3F2C862703FBC";
+
+        const API = `https://eandata.com/feed/?v=3&keycode=${API_KEY}&mode=json&find=${upc}`;
+        fetch(API).then(res => res.json()).then(res => {
+            resolve(res);
+        })
+    })
+}
 
 
 console.log("Listening...");
