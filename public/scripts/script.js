@@ -421,7 +421,7 @@ async function onScanSuccess(decodedText, decodedResult) {
 var html5QrcodeScanner = new Html5QrcodeScanner(
     "qr-reader", {
             fps: 1,
-            qrbox: 250 
+            qrbox: 150 
         });
 
 html5QrcodeScanner.render(onScanSuccess);
