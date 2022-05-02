@@ -133,6 +133,7 @@ function updateItem(item) {
         db.items.update({_id: id}, item, {}, function(err, numReplaced) {
             if(!err) {
                 resolve(numReplaced);
+                db.items.compactDatafile();
             } else {
                 console.log(err);
                 reject(err);

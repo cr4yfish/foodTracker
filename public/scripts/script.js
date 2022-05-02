@@ -226,6 +226,24 @@ function sendItem(updateOrAdd, reqObject = false) {
     // check if object is set
     if(object != false) {
         object = reqObject;
+
+        // search if same product is already in list
+        // if so, then just increase count
+        let items = document.querySelectorAll(".itemGroup");
+        items.forEach(function (item) {
+            if(item.querySelector(".itemName").textContent == object.name) {
+                updateOrAdd = "update";
+                object.count = parseInt(item.querySelector(".itemCount").textContent) + 1;
+                object.date = new Date(item.querySelector(".itemDate")).toString();
+                object.group = item.dataset.group;
+                object.id = item.querySelector(".itemName").dataset.id;
+            }
+        })
+
+        if(object.date === "Invalid Date") {
+            // set date to today because it is invalid
+            object.date = new Date().toString();
+        }
     }
 
     if (
@@ -239,9 +257,8 @@ function sendItem(updateOrAdd, reqObject = false) {
     } else 
     {
 
-        if(updateOrAdd == "update") {
+        if(updateOrAdd === "update" && reqObject === false) {
             object.id = document.getElementById("inputName").dataset.id
-            
         }
 
         console.log("Sending this: ", object);
@@ -403,7 +420,7 @@ async function onScanSuccess(decodedText, decodedResult) {
 
 var html5QrcodeScanner = new Html5QrcodeScanner(
     "qr-reader", {
-            fps: 30,
+            fps: 1,
             qrbox: 250 
         });
 
