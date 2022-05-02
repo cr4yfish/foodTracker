@@ -375,8 +375,7 @@ function toggleScanner(type) {
 
 async function onScanSuccess(decodedText, decodedResult) {
     console.log("Code scanned", decodedText, decodedResult);
-    document.querySelector("#qr-reader__dashboard_section_csr > span:nth-child(2) > button:nth-child(2)").click();
-
+    
     // TO-DO: ADD SPINNER OR SOMETHING
 
     convertUPC(decodedText).then(data => {
@@ -393,6 +392,7 @@ async function onScanSuccess(decodedText, decodedResult) {
             sendItem("add", newItem)
             toggleOpacityLayer();
         } else {
+            document.querySelector("#qr-reader__dashboard_section_csr > span:nth-child(2) > button:nth-child(2)").click();
             document.getElementById("inputName").previousElementSibling.style.transform = "translateY(-1.75em)"
             document.getElementById("inputName").value = data.product.attributes.product;
             document.getElementById("qr-reader").style.display = "none";
