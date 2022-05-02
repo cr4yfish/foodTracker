@@ -236,8 +236,7 @@ function sendItem(updateOrAdd, reqObject = false) {
         // not valid information
         console.log("Invalid info", object);
         alert("Try again!");
-    } 
-    else 
+    } else 
     {
 
         if(updateOrAdd == "update") {
@@ -250,17 +249,18 @@ function sendItem(updateOrAdd, reqObject = false) {
         let url = `/api/sendItem/${updateOrAdd}`;
     
            const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(object),
-            headers: {
-                "Content-Type": "application/json"
-            },
+                method: "POST",
+                body: JSON.stringify(object),
+                headers: {
+                    "Content-Type": "application/json"
+                },
             }
 
         fetch(url, requestOptions)
         .then(function() {
             getItems()
-            if(updateOrAdd !== "home_scan") {
+            // wasn't called from homepage
+            if(reqObject === false) {
                 togglePopup();
             }
         })
@@ -390,7 +390,7 @@ async function onScanSuccess(decodedText, decodedResult) {
                 group: "none",
             }
             console.log(newItem);
-            sendItem("home_scan", newItem)
+            sendItem("add", newItem)
             toggleOpacityLayer();
         } else {
             document.getElementById("inputName").previousElementSibling.style.transform = "translateY(-1.75em)"
