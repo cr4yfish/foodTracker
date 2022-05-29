@@ -41,10 +41,8 @@ console.log("=========");
 
     app.set("view-engine", "ejs");
 
-    // Create HTTPS server.
-
-    var server = https.createServer(options, app);
-    server.listen(30001);
+    // Create server.
+        app.listen(30002);
 
     //
 
@@ -112,14 +110,24 @@ console.log("=========");
         const reqBody = req.body;
         console.log("Got this:", reqBody);
 
-        if(req.params.reqState == "add") {
-            database.saveItem(reqBody).then(function(data) {
-                res.send(data.toString());
+        try {
+            if(req.params.reqState == "add") {
+                database.saveItem(reqBody).then(function(data) {
+                data.success = true;
+                res.send(data);
             })
-        } else if (req.params.reqState == "update") {
-            database.updateItem(reqBody).then(function(data) {
-                res.send(data.toString());
-            })
+            } else if (req.params.reqState == "update") {
+                database.updateItem(reqBody).then(function(data) {
+                    data.success = true;
+                    res.send(data);
+                })
+            }
+        } catch (e) {
+            const errorBody = {
+                error: e,
+                success: false,
+            }
+            res.send(errorBody);
         }
     })
 
@@ -128,9 +136,17 @@ console.log("=========");
         const reqBody = req.body;
         console.log("Got this:", reqBody);
 
-        database.deleteItem(reqBody).then(function(data) {
-            res.sendStatus(200);
-        })
+        try {
+            database.deleteItem(reqBody).then(function(data) {
+                res.send({success: true, data: data});
+            })
+        } catch(e) {
+            res.send({
+                error: e,
+                success: false,
+            })
+        }
+  
     })
 
     app.get("/api/convertupc/:upc", async (req, res) => {

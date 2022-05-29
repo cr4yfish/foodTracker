@@ -143,11 +143,11 @@ function updateItem(item) {
 }
 
 function deleteItem(object) {
-    console.log("Delete item:", object.id);
+    console.log("Delete item:", object._id);
 
     return new Promise((resolve, reject) => {
 
-        db.items.remove({_id: object.id}, {}, function(err, numRemoved) {
+        db.items.remove({_id: object._id}, {}, function(err, numRemoved) {
             if(!err) {
                 resolve(numRemoved);
 
