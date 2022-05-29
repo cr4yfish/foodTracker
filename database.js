@@ -122,11 +122,11 @@ function saveItem(item) {
 }
 
 function updateItem(item) {
-    console.log("Updating item:", item.id);
+    console.log("Updating item:", item._id);
 
     return new Promise((resolve, reject) => {
 
-        const id = item.id;
+        const id = item._id;
 
         delete item.id
 

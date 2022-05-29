@@ -118,8 +118,11 @@ console.log("=========");
             })
             } else if (req.params.reqState == "update") {
                 database.updateItem(reqBody).then(function(data) {
-                    data.success = true;
-                    res.send(data);
+                    const resBody = {
+                        success: true,
+                        numberUpdated: data,
+                    }
+                    res.send(resBody);
                 })
             }
         } catch (e) {
